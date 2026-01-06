@@ -1,217 +1,303 @@
-# 🏦 Global Banking & Crypto Application
+# 🏦 Banking App Backend - Production-Ready Server
 
-A comprehensive banking and cryptocurrency application built with modern web technologies.
+A secure, scalable backend server for the Global Banking & Crypto Application built with Node.js, Express, and MongoDB.
 
-## ✨ Features
+## 🚀 Features
 
-### 🏦 Banking System
-- **Multi-Currency Support**: USD, EUR, GBP, CNY (Chinese Yuan), NGN (Nigerian Naira)
-- **Balance Management**: View and edit balances across all currencies
-- **Transaction System**: Send, receive, and transfer funds
-- **International Transfers**: SWIFT code support for global transactions
-- **Microfinance Integration**: Palmpay, Moniepoint, Opay integration
+### 🔒 Security
+- **JWT Authentication**: Secure token-based authentication
+- **Password Hashing**: Bcrypt with configurable rounds
+- **Rate Limiting**: Configurable rate limiting for all endpoints
+- **Input Validation**: Joi schema validation for all requests
+- **XSS Protection**: Sanitization against XSS attacks
+- **SQL Injection Prevention**: MongoDB query sanitization
+- **Helmet**: Security HTTP headers
+- **CORS**: Configurable CORS policies
+- **Audit Logging**: Complete audit trail for all actions
+- **Two-Factor Authentication**: Optional 2FA support
 
-### ₿ Cryptocurrency System
-- **Multi-Crypto Support**: Bitcoin (BTC), TRON (TRX), TON COIN (TON), Ethereum (ETH)
-- **Wallet Management**: Create unlimited wallets for each cryptocurrency
-- **Blockchain Integration**: Generate and manage blockchain addresses
-- **Crypto Trading**: Buy and sell cryptocurrencies with automated trading robot
+### 📊 Database
+- **MongoDB**: NoSQL database with Mongoose ODM
+- **Data Models**: User, Transaction, Wallet, Mining, Notification, AuditLog
+- **Indexes**: Optimized database indexes for performance
+- **TTL**: Auto-expiration of old logs
 
-### ⛏️ Mining System
-- **Currency Mining**: Automatically mines 1000 units of each fiat currency every hour
-- **Crypto Mining**: Mines 1 BTC and 100 units of other cryptocurrencies every hour
-- **Address Generation**: Auto-generates 10 blockchain addresses every second
-- **Auto-Transfer**: Automatically transfers mined funds to main balance
+### ⚡ Features
+- **Multi-Currency Banking**: USD, EUR, GBP, CNY, NGN
+- **Cryptocurrency**: BTC, TRX, TON, ETH wallet support
+- **Mining System**: Automated mining with background services
+- **Trading Robot**: Automated crypto trading
+- **Transaction System**: Send, receive, transfer, international transfers
+- **Notification System**: Email and SMS alerts (simulated)
+- **API Keys**: REST API key management
+- **Admin Panel**: Full admin controls and monitoring
 
-### 🤖 Trading Robot
-- **Automated Trading**: AI-powered trading robot for crypto markets
-- **Profit Separation**: Automatically separates profits from capital
-- **Real-time Monitoring**: Track trading performance and profits
-
-### 🔔 Alert System
-- **SMS Alerts**: Instant SMS notifications for transactions
-- **Email Alerts**: Email notifications for all activities
-- **Transaction Alerts**: Real-time updates on all transactions
-- **Mining Alerts**: Notifications when mining completes
-
-### 👤 User Management
-- **Customer Login**: Secure customer authentication
-- **Admin Portal**: Admin dashboard for system management
-- **User Profiles**: Manage personal information, photo, DOB, country
-- **Session Management**: Secure session handling
-
-### 🔒 Security Features
-- **SSL/HTTPS Support**: Secure connection options
-- **Two-Factor Authentication**: Enhanced security
-- **Audit Logs**: Track all system activities
-- **Admin Controls**: Full administrative oversight
-
-### 🔗 Integrations
-- **GitHub Integration**: Connect and manage repositories
-- **API Access**: REST API for external integrations
-- **Google Search**: Integrated search functionality
-- **Webhooks**: Support for external services
-
-## 🚀 Getting Started
+## 📦 Installation
 
 ### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Internet connection
-- No additional software required
+- Node.js >= 18.0.0
+- MongoDB >= 4.4
+- npm >= 9.0.0
 
-### Installation
+### Setup
 
-1. **Clone or download the project files**
+1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd banking-app
+   cd backend
    ```
 
-2. **Open the application**
-   - Simply open `index.html` in your web browser
-   - Or run a local server:
-     ```bash
-     python -m http.server 8080
-     ```
-   - Then navigate to `http://localhost:8080`
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### Usage
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
 
-#### Customer Login
-1. Open the application
-2. Enter your username and password
-3. Click "Customer Login"
-4. Access all banking and crypto features
+4. **Edit `.env` file**
+   ```env
+   NODE_ENV=production
+   PORT=5000
+   MONGODB_URI=mongodb://localhost:27017/banking-app
+   JWT_SECRET=your-super-secret-jwt-key-change-this-min-32-chars
+   # ... other configurations
+   ```
 
-#### Admin Login
-1. Click on Admin Portal section
-2. Enter admin credentials
-3. Access admin controls and system management
+5. **Start MongoDB**
+   ```bash
+   # Linux/Mac
+   mongod
 
-#### Key Operations
+   # Windows
+   net start MongoDB
+   ```
 
-**Send Money**
-- Select currency and amount
-- Enter recipient account/wallet
-- Choose bank/network
-- Confirm transaction
+6. **Start the server**
+   ```bash
+   # Production
+   npm start
 
-**Receive Money**
-- Select currency
-- Enter amount and sender details
-- Confirm receipt
+   # Development with auto-reload
+   npm run dev
+   ```
 
-**Crypto Operations**
-- Create new wallets for any supported cryptocurrency
-- Generate blockchain addresses automatically
-- Send/receive crypto to any wallet
-
-**Mining**
-- Automatic mining runs in background
-- Progress displayed in real-time
-- Funds auto-transferred to main balance
-
-**Trading**
-- Activate trading robot
-- Set trading parameters
-- Monitor profits and capital
-
-## 📁 Project Structure
+## 🏗️ Project Structure
 
 ```
-banking-app/
-├── index.html          # Main application file
-├── styles.css          # Styling and design
-├── app.js             # Application logic
-├── todo.md            # Project development plan
-└── README.md          # Documentation
+backend/
+├── config/
+│   └── database.js          # Database configuration
+├── middleware/
+│   ├── auth.js              # Authentication middleware
+│   ├── errorHandler.js      # Global error handler
+│   ├── notFound.js          # 404 handler
+│   ├── logger.js            # Logging middleware
+│   └── validation.js        # Request validation
+├── models/
+│   ├── User.js              # User model
+│   ├── Transaction.js       # Transaction model
+│   ├── Wallet.js            # Wallet model
+│   ├── Mining.js            # Mining model
+│   ├── Notification.js      # Notification model
+│   └── AuditLog.js          # Audit log model
+├── routes/
+│   ├── auth.js              # Authentication routes
+│   ├── users.js             # User management routes
+│   ├── balances.js          # Balance management routes
+│   ├── transactions.js      # Transaction routes
+│   ├── crypto.js            # Cryptocurrency routes
+│   ├── mining.js            # Mining routes
+│   ├── trading.js           # Trading routes
+│   ├── notifications.js     # Notification routes
+│   └── admin.js             # Admin routes
+├── services/
+│   ├── miningService.js     # Background mining service
+│   └── tradingService.js    # Background trading service
+├── logs/                    # Log files (auto-created)
+├── .env.example             # Environment variables template
+├── package.json             # Dependencies and scripts
+├── server.js                # Main server file
+└── README.md                # This file
 ```
 
-## 🎨 Features Overview
+## 🔌 API Endpoints
 
-### Dashboard
-- Real-time balance overview
-- Multi-currency display
-- Quick action buttons
-- Recent transactions
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - Logout user
+- `POST /api/auth/refresh` - Refresh access token
+
+### User Management
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update profile
+- `PUT /api/users/settings` - Update notification settings
+- `POST /api/users/api-keys` - Generate API key
+- `GET /api/users/api-keys` - Get API keys
+- `DELETE /api/users/api-keys/:name` - Delete API key
+
+### Balances
+- `GET /api/balances` - Get all balances
+- `GET /api/balances/:currency` - Get specific balance
+- `PUT /api/balances/:currency` - Update balance (Admin)
+- `GET /api/balances/total/converted` - Get total converted to USD
 
 ### Transactions
-- Send money to any account
-- Receive payments
-- Transfer between currencies
-- International transfers (SWIFT)
-- Transaction history
+- `POST /api/transactions/send` - Send money
+- `POST /api/transactions/receive` - Receive money
+- `POST /api/transactions/transfer` - Transfer between currencies
+- `GET /api/transactions/history` - Get transaction history
+- `POST /api/transactions/international` - International transfer
 
-### Crypto Wallets
-- Create unlimited wallets
-- Generate blockchain addresses
-- Send/receive crypto
-- Wallet management
+### Cryptocurrency
+- `POST /api/crypto/wallet` - Create wallet
+- `GET /api/crypto/wallets` - Get wallets
+- `POST /api/crypto/send` - Send crypto
+- `GET /api/crypto/balance/:currency` - Get crypto balance
 
 ### Mining
-- Automated currency mining
-- Crypto mining (BTC, TRX, TON, ETH)
-- Real-time progress tracking
-- Auto-transfer to balance
+- `GET /api/mining/status` - Get mining status
+- `POST /api/mining/toggle` - Toggle mining
+- `GET /api/mining/addresses` - Get generated addresses
 
 ### Trading
-- Automated trading robot
-- Buy/sell crypto
-- Profit management
-- Trading history
+- `GET /api/trading/status` - Get trading status
+- `POST /api/trading/toggle` - Toggle trading robot
+- `POST /api/trading/withdraw-profit` - Withdraw profit
 
-### Profile
-- Personal information
-- Notification settings
-- Integration management
-- Security settings
+### Notifications
+- `GET /api/notifications` - Get notifications
+- `PUT /api/notifications/:id/read` - Mark as read
 
-## 🔧 Technical Details
+### Admin (Admin only)
+- `GET /api/admin/stats` - Get system statistics
+- `GET /api/admin/users` - Get all users
+- `PUT /api/admin/users/:userId/status` - Update user status
+- `GET /api/admin/audit-logs` - Get audit logs
 
-### Technologies Used
-- **HTML5**: Markup structure
-- **CSS3**: Modern styling with gradients and animations
-- **JavaScript (ES6+)**: Application logic
-- **LocalStorage**: Data persistence
-- **Responsive Design**: Mobile-friendly interface
+## 🔒 Security Best Practices
 
-### Browser Compatibility
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+### Authentication
+- All protected routes require valid JWT token
+- Tokens expire after 7 days (configurable)
+- Refresh tokens available for extended sessions
+- Passwords hashed with bcrypt (12 rounds by default)
 
-### Data Storage
-- All data stored locally in browser
-- Persistent across sessions
-- Export/import functionality available
+### Rate Limiting
+- Standard: 100 requests per 15 minutes
+- Auth endpoints: 5 requests per 15 minutes
+- Configurable via environment variables
 
-## 🛡️ Security Notes
+### Validation
+- All inputs validated with Joi schemas
+- Sanitization against XSS and injection attacks
+- Type checking and length limits
 
-- This is a demonstration/educational application
-- Not intended for real financial transactions
-- Uses local storage (not secure for production)
-- Simulates backend functionality
-- Always use proper security measures for real banking apps
+### Logging
+- Winston logger for structured logging
+- Separate error and combined log files
+- Log rotation (5 files, 5MB each)
+- Audit logs for all user actions
+
+### Database Security
+- Mongoose sanitization against NoSQL injection
+- Proper indexing for performance
+- TTL indexes for automatic cleanup
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+
+# Lint code
+npm run lint
+```
+
+## 📊 Monitoring
+
+### Health Check
+```bash
+GET /health
+```
+
+### Logs
+- Application logs: `logs/combined.log`
+- Error logs: `logs/error.log`
+
+### Audit Logs
+Access via admin API endpoint
+
+## 🔧 Configuration
+
+### Environment Variables
+
+See `.env.example` for all available options:
+
+- `NODE_ENV` - Environment (development/production)
+- `PORT` - Server port (default: 5000)
+- `MONGODB_URI` - MongoDB connection string
+- `JWT_SECRET` - JWT signing secret (required)
+- `JWT_EXPIRE` - Token expiration (default: 7d)
+- `FRONTEND_URL` - CORS allowed origin
+
+### Security Settings
+- `BCRYPT_ROUNDS` - Password hashing rounds (default: 12)
+- `RATE_LIMIT_MAX_REQUESTS` - Rate limit (default: 100)
+- `AUTH_RATE_LIMIT_MAX_REQUESTS` - Auth rate limit (default: 5)
+
+## 🚀 Deployment
+
+### Using PM2 (Recommended)
+```bash
+npm install -g pm2
+pm2 start server.js --name banking-app
+pm2 startup
+pm2 save
+```
+
+### Using Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 5000
+CMD ["npm", "start"]
+```
+
+### Environment Setup
+1. Set `NODE_ENV=production`
+2. Use strong secrets for `JWT_SECRET` and `JWT_REFRESH_SECRET`
+3. Configure proper MongoDB connection
+4. Set up reverse proxy (nginx)
+5. Enable HTTPS with SSL certificate
+6. Configure firewall rules
+7. Set up monitoring and alerting
 
 ## 📝 License
 
-This project is for educational purposes. Feel free to modify and use as needed.
+MIT License - See LICENSE file for details
 
 ## 🤝 Support
 
-For questions or issues, please refer to the project documentation or contact support.
-
-## 🔄 Updates
-
-Version 1.0.0 - Initial Release
-- Complete banking system
-- Full crypto integration
-- Mining functionality
-- Trading robot
-- Admin panel
-- All requested features implemented
+For issues and questions, please refer to the main project documentation.
 
 ---
 
-**Note**: This is a demonstration application. Do not use for real financial transactions. Always use secure, regulated banking services for actual financial operations.
+**⚠️ Security Notice**: This is a demonstration application. For production use, ensure:
+- All secrets are properly secured
+- Database backups are configured
+- Monitoring and alerting are set up
+- Security audit is performed
+- Compliance requirements are met
+- SSL/TLS is properly configured
+- Firewall rules are configured
+- Regular security updates are applied
